@@ -1,15 +1,12 @@
-# Alpine Ghost Docker image
+# Ghost Docker image running on Alpine Linux
 
-[![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-ghost.svg)](https://imagelayers.io/?images=yobasystems/alpine-ghost:latest)
+[![Docker Layers](https://img.shields.io/badge/docker%20layers-4-blue.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/) [![Docker Size](https://img.shields.io/badge/docker%20size-7.93%20MB-blue.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/) [![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-ghost.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/) [![Docker Pulls](https://img.shields.io/docker/pulls/yobasystems/alpine-ghost.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/)
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/yobasystems/alpine-ghost.svg)](https://imagelayers.io/?images=yobasystems/alpine-ghost:latest)
-
-[![Image Size](https://img.shields.io/imagelayers/image-size/yobasystems/alpine-ghost/latest.svg)](https://imagelayers.io/?images=yobasystems/alpine-ghost:latest)
-
-[![Image Layers](https://img.shields.io/imagelayers/layers/yobasystems/alpine-ghost/latest.svg)](https://imagelayers.io/?images=yobasystems/alpine-ghost:latest)
+[![Alpine Version](https://img.shields.io/badge/alpine%20version-v3.4-green.svg?maxAge=2592000?style=flat-square)](http://alpinelinux.org/) [![nodejs Version](https://img.shields.io/badge/nodejs%20version-v1.10.1-green.svg?maxAge=2592000?style=flat-square)](http://nginx.org/en/)
 
 
-[This](https://hub.docker.com/r/yobasystems/alpine-ghost/) Docker image is based on the minimal [Alpine Linux latest](http://alpinelinux.org/) using the nodejs 6.2.0 Alpine docker image [yobasystems/alpine-nodejs](https://hub.docker.com/r/yobasystems/alpine-nodejs/).
+
+This Docker image [(yobasystems/alpine-ghost)](https://hub.docker.com/r/yobasystems/alpine-ghost/) is based on the minimal [Alpine Linux](http://alpinelinux.org/) using the nodejs Alpine docker image [yobasystems/alpine-nodejs](https://hub.docker.com/r/yobasystems/alpine-nodejs/).
 
 ## Features
 
