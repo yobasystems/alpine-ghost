@@ -1,4 +1,4 @@
-FROM yobasystems/alpine-nodejs-min
+FROM yobasystems/alpine-nodejs:min
 MAINTAINER Dominic Taylor <dominic@yobasystems.co.uk>
 
 ARG VERSION=0.9.0
