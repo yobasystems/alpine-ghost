@@ -2,7 +2,7 @@
 
 [![Docker Layers](https://img.shields.io/badge/docker%20layers-12-blue.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/) [![Docker Size](https://img.shields.io/badge/docker%20size-36.7%20MB-blue.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/) [![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-ghost.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/) [![Docker Pulls](https://img.shields.io/docker/pulls/yobasystems/alpine-ghost.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/)
 
-[![Alpine Version](https://img.shields.io/badge/alpine%20version-v3.4-green.svg?maxAge=2592000?style=flat-square)](http://alpinelinux.org/) [![nodejs Version](https://img.shields.io/badge/nodejs%20version-v6.2.0-green.svg?maxAge=2592000?style=flat-square)](http://nginx.org/en/) [![Ghost Version](https://img.shields.io/badge/Ghost%20version-v0.9-green.svg?maxAge=2592000?style=flat-square)](http://nginx.org/en/)
+[![Alpine Version](https://img.shields.io/badge/alpine%20version-v3.4-green.svg?maxAge=2592000?style=flat-square)](http://alpinelinux.org/) [![nodejs Version](https://img.shields.io/badge/nodejs%20version-v6.2.0-green.svg?maxAge=2592000?style=flat-square)](https://nodejs.org/en/) [![Ghost Version](https://img.shields.io/badge/Ghost%20version-v0.9-green.svg?maxAge=2592000?style=flat-square)](https://ghost.org/)
 
 
 
@@ -49,8 +49,8 @@ docker run --name some-ghost --volumes-from some-ghost-data yobasystems/alpine-g
 
 ### Main config.js parameters:
 * `URL`: specify the ghost url with http:// or https://
-* `GID`: `991` specify the Group ID of the files
-* `UID`: `991` specify the User ID of the files
+* `GID`: `1027` specify the Group ID of the files
+* `UID`: `1027` specify the User ID of the files
 * `SYNTAX_HIGHLIGHTING`: `True` specify if Syntax Highlighting is enabled in ghost
 * `HIGHLIGHTER_COLOR`: `dark` specify the colour scheme for Syntax Highlighting
 

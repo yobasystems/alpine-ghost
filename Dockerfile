@@ -1,11 +1,11 @@
 FROM yobasystems/alpine-nodejs:min
 MAINTAINER Dominic Taylor <dominic@yobasystems.co.uk>
 
-ARG VERSION=0.9.0
+ARG VERSION=0.11.0
 
 ENV GHOST_NODE_VERSION_CHECK=false \
-    GID=991 \
-    UID=991 \
+    GID=1027 \
+    UID=1027 \
     URL=http://www.my-ghost-blog.com \
     SYNTAX_HIGHLIGHTING=True \
     HIGHLIGHTER_COLOR=dark \
