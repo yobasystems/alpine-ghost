@@ -1,7 +1,7 @@
 FROM yobasystems/alpine-nodejs:min
 MAINTAINER Dominic Taylor <dominic@yobasystems.co.uk>
 
-ARG VERSION=0.11.0
+ARG VERSION=0.11.1
 
 ENV GHOST_NODE_VERSION_CHECK=false \
     GID=1027 \
