@@ -15,7 +15,7 @@ This Docker image [(yobasystems/alpine-ghost)](https://hub.docker.com/r/yobasyst
   * Node Version 6.2.0
   * NPM Version 3.8.9
   * Ghost Version 0.11.3
-  * su-exec instead of gosu because it's fully gosu-compatible in a fraction of the file size.
+  * su-exec instead of gosu because it's fully gosu compatible in a fraction of the file size.
 
 ## Creating an instance
 
