@@ -2,7 +2,7 @@
 
 [![Docker Layers](https://img.shields.io/badge/docker%20layers-12-blue.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/) [![Docker Size](https://img.shields.io/badge/docker%20size-36.7%20MB-blue.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/) [![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-ghost.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/) [![Docker Pulls](https://img.shields.io/docker/pulls/yobasystems/alpine-ghost.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/)
 
-[![Alpine Version](https://img.shields.io/badge/alpine%20version-v3.4-green.svg?maxAge=2592000?style=flat-square)](http://alpinelinux.org/) [![nodejs Version](https://img.shields.io/badge/nodejs%20version-v6.2.0-green.svg?maxAge=2592000?style=flat-square)](https://nodejs.org/en/) [![Ghost Version](https://img.shields.io/badge/Ghost%20version-v0.11.4-green.svg?maxAge=2592000?style=flat-square)](https://ghost.org/)
+[![Alpine Version](https://img.shields.io/badge/alpine%20version-v3.5-green.svg?maxAge=2592000?style=flat-square)](http://alpinelinux.org/) [![nodejs Version](https://img.shields.io/badge/nodejs%20version-v6.9.4-green.svg?maxAge=2592000?style=flat-square)](https://nodejs.org/en/) [![Ghost Version](https://img.shields.io/badge/Ghost%20version-v0.11.4-green.svg?maxAge=2592000?style=flat-square)](https://ghost.org/)
 
 
 
