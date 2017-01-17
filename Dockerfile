@@ -16,15 +16,17 @@ ENV GHOST_NODE_VERSION_CHECK=false \
 
 VOLUME /ghost/content
 
-RUN apk -U add \
+RUN apk update && \
+    apk -U add \
+    unzip \
     ca-certificates \
     bash \
     grep \
     wget \
     tini \
     su-exec \
- && wget -q https://ghost.org/zip/ghost-$VERSION.zip -P /tmp \
- && unzip -q /tmp/ghost-$VERSION.zip -d /ghost \
+ && wget -q https://github.com/TryGhost/Ghost/releases/download/$VERSION/Ghost-$VERSION.zip -P /tmp \
+ && unzip -q /tmp/Ghost-$VERSION.zip -d /ghost \
  && cd /ghost \
  && npm install --production \
  && mv content/themes/casper casper \
