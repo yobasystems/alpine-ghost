@@ -28,8 +28,8 @@ else
 fi
 
 if [ "$SYNTAX_HIGHLIGHTING" == "True" ] && [ ! -f /ghost/content/themes/casper/assets/js/prism.js ]; then
-    cp /ghost/prismjs/$HIGHLIGHTER_COLOR/prism.css /ghost/content/themes/casper/assets/css
-    cp /ghost/prismjs/$HIGHLIGHTER_COLOR/prism.js /ghost/content/themes/casper/assets/js
+    cp /ghost/prismjs/prism.css /ghost/content/themes/casper/assets/css
+    cp /ghost/prismjs/prism.js /ghost/content/themes/casper/assets/js
     cd /usr/local/etc
     sed -i -e "/Styles'n'Scripts/r prism.css.conf" \
            -e "/The main JavaScript file for Casper/r prism.js.conf" \

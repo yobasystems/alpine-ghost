@@ -8,7 +8,6 @@ ENV GHOST_NODE_VERSION_CHECK=false \
     UID=1027 \
     URL=http://www.my-ghost-blog.com \
     SYNTAX_HIGHLIGHTING=True \
-    HIGHLIGHTER_COLOR=dark \
     CUSTOM_SMTP=False \
     SERVICE=Sendgrid \
     SMTP_PASS=12345 \
@@ -38,10 +37,8 @@ RUN apk update && \
 
 COPY files/run.sh /usr/local/bin/run.sh
 COPY files/smtp.conf /usr/local/etc/smtp.conf
-COPY files/prism_light.js /ghost/prismjs/light/prism.js
-COPY files/prism_light.css /ghost/prismjs/light/prism.css
-COPY files/prism_dark.js /ghost/prismjs/dark/prism.js
-COPY files/prism_dark.css /ghost/prismjs/dark/prism.css
+COPY files/prism.js /ghost/prismjs/prism.js
+COPY files/prism.css /ghost/prismjs/prism.css
 COPY files/prism.js.conf /usr/local/etc/prism.js.conf
 COPY files/prism.css.conf /usr/local/etc/prism.css.conf
 
