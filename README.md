@@ -16,6 +16,14 @@ This Docker image [(yobasystems/alpine-ghost)](https://hub.docker.com/r/yobasyst
   * NPM Version 3.8.9
   * Ghost Version 0.11.7
   * su-exec instead of gosu because it's fully gosu compatible in a fraction of the file size.
+  * Armv7 (armhf) version with ```:armhf``` tag
+
+## Tags
+
+* ```:latest``` latest nginx & alpine
+* ```:master``` master branch usually inline with latest
+* ```:v0.0.0``` version number related to nginx version
+* ```:armhf``` Armv7 based on latest tag but arm architecture
 
 ## Creating an instance
 
