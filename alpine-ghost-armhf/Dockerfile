@@ -23,8 +23,11 @@ RUN apk update && \
     grep \
     wget \
     tini \
-    su-exec \
- && wget -q https://github.com/TryGhost/Ghost/releases/download/$VERSION/Ghost-$VERSION.zip -P /tmp \
+    su-exec
+
+RUN ln -s "$(which nodejs)" /usr/bin/node
+
+RUN wget -q https://github.com/TryGhost/Ghost/releases/download/$VERSION/Ghost-$VERSION.zip -P /tmp \
  && unzip -q /tmp/Ghost-$VERSION.zip -d /ghost \
  && cd /ghost \
  && npm install --production \
