@@ -30,6 +30,7 @@ RUN ln -s /usr/local/bin/node /usr/bin/nodejs
 RUN wget -q https://github.com/TryGhost/Ghost/releases/download/$VERSION/Ghost-$VERSION.zip -P /tmp \
  && unzip -q /tmp/Ghost-$VERSION.zip -d /ghost \
  && cd /ghost \
+ && npm install -g sqlite3 \
  && npm install --production \
  && mv content/themes/casper casper \
  && mv config.example.js config.js \
