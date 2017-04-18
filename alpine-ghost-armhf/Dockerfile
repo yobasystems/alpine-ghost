@@ -25,6 +25,8 @@ RUN apk update && \
     tini \
     su-exec
 
+RUN ln -s /usr/local/bin/node /usr/bin/nodejs
+
 RUN wget -q https://github.com/TryGhost/Ghost/releases/download/$VERSION/Ghost-$VERSION.zip -P /tmp \
  && unzip -q /tmp/Ghost-$VERSION.zip -d /ghost \
  && cd /ghost \
