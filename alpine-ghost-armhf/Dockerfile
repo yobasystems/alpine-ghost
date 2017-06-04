@@ -1,7 +1,7 @@
 FROM yobasystems/alpine-nodejs:armhf-min
 MAINTAINER Dominic Taylor <dominic@yobasystems.co.uk>
 
-ARG VERSION=0.11.7
+ARG VERSION=0.11.9
 
 ENV GHOST_NODE_VERSION_CHECK=false \
     GID=1027 \

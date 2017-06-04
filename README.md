@@ -2,7 +2,7 @@
 
 [![Docker Layers](https://img.shields.io/badge/docker%20layers-12-blue.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/) [![Docker Size](https://img.shields.io/badge/docker%20size-36.7%20MB-blue.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/) [![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-ghost.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/) [![Docker Pulls](https://img.shields.io/docker/pulls/yobasystems/alpine-ghost.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/)
 
-[![Alpine Version](https://img.shields.io/badge/alpine%20version-v3.5-green.svg?maxAge=2592000?style=flat-square)](http://alpinelinux.org/) [![nodejs Version](https://img.shields.io/badge/nodejs%20version-v6.9.4-green.svg?maxAge=2592000?style=flat-square)](https://nodejs.org/en/) [![Ghost Version](https://img.shields.io/badge/Ghost%20version-v0.11.7-green.svg?maxAge=2592000?style=flat-square)](https://ghost.org/)
+[![Alpine Version](https://img.shields.io/badge/alpine%20version-v3.5-green.svg?maxAge=2592000?style=flat-square)](http://alpinelinux.org/) [![nodejs Version](https://img.shields.io/badge/nodejs%20version-v6.9.4-green.svg?maxAge=2592000?style=flat-square)](https://nodejs.org/en/) [![Ghost Version](https://img.shields.io/badge/Ghost%20version-v0.11.9-green.svg?maxAge=2592000?style=flat-square)](https://ghost.org/)
 
 
 
@@ -14,7 +14,7 @@ This Docker image [(yobasystems/alpine-ghost)](https://hub.docker.com/r/yobasyst
   * Memory usage is minimal on a simple install
   * Node Version 6.9.4
   * NPM Version 3.8.9
-  * Ghost Version 0.11.7
+  * Ghost Version 0.11.9
   * su-exec instead of gosu because it's fully gosu compatible in a fraction of the file size.
   * Armv7 (armhf) version with ```:armhf``` tag
 
