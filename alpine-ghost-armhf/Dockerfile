@@ -28,10 +28,10 @@ RUN apk update && \
     wget \
     build-base \
     make \
+    python \
     gcc \
-    g++
-
-RUN wget -q https://github.com/TryGhost/Ghost/releases/download/$VERSION/Ghost-$VERSION.zip -P /tmp \
+    g++ \
+ && wget -q https://github.com/TryGhost/Ghost/releases/download/$VERSION/Ghost-$VERSION.zip -P /tmp \
  && unzip -q /tmp/Ghost-$VERSION.zip -d /ghost \
  && cd /ghost \
  && npm install sqlite3 --unsafe-perm \
@@ -40,7 +40,7 @@ RUN wget -q https://github.com/TryGhost/Ghost/releases/download/$VERSION/Ghost-$
  && mv config.example.js config.js \
  && sed -i 's/127.0.0.1/0.0.0.0/g' config.js \
  && npm cache clean \
- && apk del ca-certificates unzip build-base make gcc g++ \
+ && apk del --no-cache ca-certificates unzip build-base make python gcc g++ \
  && rm -rf /tmp/* /var/cache/apk/*
 
 COPY files/run.sh /usr/local/bin/run.sh
