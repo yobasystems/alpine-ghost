@@ -28,7 +28,6 @@ RUN apk update && \
     wget \
     build-base \
     make \
-    python \
     gcc \
     g++
 
@@ -41,7 +40,7 @@ RUN wget -q https://github.com/TryGhost/Ghost/releases/download/$VERSION/Ghost-$
  && mv config.example.js config.js \
  && sed -i 's/127.0.0.1/0.0.0.0/g' config.js \
  && npm cache clean \
- && apk del ca-certificates build-base make python gcc g++ \
+ && apk del ca-certificates unzip build-base make gcc g++ \
  && rm -rf /tmp/* /var/cache/apk/*
 
 COPY files/run.sh /usr/local/bin/run.sh
