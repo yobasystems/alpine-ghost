@@ -2,28 +2,62 @@
 
 [![Docker Layers](https://img.shields.io/badge/docker%20layers-12-blue.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/) [![Docker Size](https://img.shields.io/badge/docker%20size-36.7%20MB-blue.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/) [![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-ghost.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/) [![Docker Pulls](https://img.shields.io/docker/pulls/yobasystems/alpine-ghost.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/)
 
-[![Alpine Version](https://img.shields.io/badge/alpine%20version-v3.5-green.svg?maxAge=2592000?style=flat-square)](http://alpinelinux.org/) [![nodejs Version](https://img.shields.io/badge/nodejs%20version-v6.9.4-green.svg?maxAge=2592000?style=flat-square)](https://nodejs.org/en/) [![Ghost Version](https://img.shields.io/badge/Ghost%20version-v0.11.9-green.svg?maxAge=2592000?style=flat-square)](https://ghost.org/)
-
+[![Alpine Version](https://img.shields.io/badge/alpine%20version-v3.6.2-green.svg?maxAge=2592000?style=flat-square)](http://alpinelinux.org/) [![nodejs Version](https://img.shields.io/badge/nodejs%20version-v6.10.3-green.svg?maxAge=2592000?style=flat-square)](https://nodejs.org/en/) [![Ghost Version](https://img.shields.io/badge/Ghost%20version-v0.11.10-green.svg?maxAge=2592000?style=flat-square)](https://ghost.org/)
 
 
 This Docker image [(yobasystems/alpine-ghost)](https://hub.docker.com/r/yobasystems/alpine-ghost/) is based on the minimal [Alpine Linux](http://alpinelinux.org/) using the nodejs Alpine docker image [yobasystems/alpine-nodejs](https://hub.docker.com/r/yobasystems/alpine-nodejs/).
 
+##### Alpine Version 3.6.2 (Released Jun 17, 2017)
+##### Ghost Version 0.11.10
+
+----
+
+## What is Alpine Linux?
+Alpine Linux is a Linux distribution built around musl libc and BusyBox. The image is only 5 MB in size and has access to a package repository that is much more complete than other BusyBox based images. This makes Alpine Linux a great image base for utilities and even production applications. Read more about Alpine Linux here and you can see how their mantra fits in right at home with Docker images.
+
+## What is Ghost?
+
 ## Features
 
-  * Minimal size only 36.7 MB and only 12 layers
-  * Memory usage is minimal on a simple install
-  * Node Version 6.9.4
-  * NPM Version 3.8.9
-  * Ghost Version 0.11.9
-  * su-exec instead of gosu because it's fully gosu compatible in a fraction of the file size.
-  * Armv7 (armhf) version with ```:armhf``` tag
+* Minimal size only 36.7 MB and only 12 layers
+* Memory usage is minimal on a simple install
+* Node Version 6.10.3
+* NPM Version 3.8.9
+* Ghost Version 0.11.10
+* su-exec instead of gosu because it's fully gosu compatible in a fraction of the file size.
+
+## Architectures
+
+* ```:amd64```, ```:latest``` - 64 bit Intel/AMD (x86_64/amd64)
+* ```:i386```, ```:x86``` - 32 bit Intel/AMD (x86/i686)
+* ```:arm64v8```, ```:aarch64``` - 64 bit ARM (ARMv8/aarch64)
+* ```:arm32v7```, ```:armhf``` - 32 bit ARM (ARMv7/armhf)
+
+#### PLEASE CHECK TAGS BELOW FOR SUPPORTED ARCHITECTURES, THE ABOVE IS A LIST OF EXPLANATION
 
 ## Tags
 
-* ```:latest``` latest nginx & alpine
+* ```:latest```, ```:amd64``` latest branch based on amd64
 * ```:master``` master branch usually inline with latest
-* ```:v0.0.0``` version number related to nginx version
-* ```:armhf``` Armv7 based on latest tag but arm architecture
+* ```:v0.0.0``` version number related to docker version
+* ```:armhf```, ```:arm32v7``` Armv7 based on latest tag but arm architecture
+
+## Environment Variables:
+
+### Main config.js parameters:
+* `URL`: specify the ghost url with http:// or https://
+* `GID`: `1027` specify the Group ID of the files
+* `UID`: `1027` specify the User ID of the files
+* `SYNTAX_HIGHLIGHTING`: `True` specify if Syntax Highlighting is enabled in ghost
+* `HIGHLIGHTER_COLOR`: `dark` specify the colour scheme for Syntax Highlighting
+
+#### Email (defaults to False meaning no emails):
+* `CUSTOM_SMTP`: specify custom email service. This can be True or False.
+* `SERVICE`: specify email service. This can be Mailgun, Sendgrid or Gmail.
+* `SMTP_USER`: specify email service smtp username
+* `SMTP_PASS`: specify email service smtp password
+
+> http://support.ghost.org/config/
 
 ## Creating an instance
 
@@ -52,23 +86,6 @@ Alternatively you can use a data container that has a volume that points to /gho
 ```bash
 docker run --name some-ghost --volumes-from some-ghost-data yobasystems/alpine-ghost
 ```
-
-## Environment Variables:
-
-### Main config.js parameters:
-* `URL`: specify the ghost url with http:// or https://
-* `GID`: `1027` specify the Group ID of the files
-* `UID`: `1027` specify the User ID of the files
-* `SYNTAX_HIGHLIGHTING`: `True` specify if Syntax Highlighting is enabled in ghost
-* `HIGHLIGHTER_COLOR`: `dark` specify the colour scheme for Syntax Highlighting
-
-#### Email (defaults to False meaning no emails):
-* `CUSTOM_SMTP`: specify custom email service. This can be True or False.
-* `SERVICE`: specify email service. This can be Mailgun, Sendgrid or Gmail.
-* `SMTP_USER`: specify email service smtp username
-* `SMTP_PASS`: specify email service smtp password
-
-> http://support.ghost.org/config/
 
 ## Docker Compose example:
 

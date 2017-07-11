@@ -1,7 +1,7 @@
 FROM yobasystems/alpine-nodejs:armhf-min
-MAINTAINER Dominic Taylor <dominic@yobasystems.co.uk>
+LABEL maintainer "Dominic Taylor <dominic@yobasystems.co.uk>" architecture="ARM32v7/armhf"
 
-ARG VERSION=0.11.9
+ARG VERSION=0.11.10
 
 ENV GHOST_NODE_VERSION_CHECK=false \
     GID=1027 \
@@ -22,21 +22,23 @@ RUN apk update && \
     bash \
     grep \
     wget \
+    make \
+    python \
+    tar \
     tini \
-    su-exec
-
-RUN ln -s /usr/local/bin/node /usr/bin/nodejs
+    su-exec \
+    yarn
 
 RUN wget -q https://github.com/TryGhost/Ghost/releases/download/$VERSION/Ghost-$VERSION.zip -P /tmp \
  && unzip -q /tmp/Ghost-$VERSION.zip -d /ghost \
  && cd /ghost \
- && npm install -g sqlite3 \
- && npm install --production \
+ && yarn global add sqlite3 \
+ && yarn install --production \
  && mv content/themes/casper casper \
  && mv config.example.js config.js \
  && sed -i 's/127.0.0.1/0.0.0.0/g' config.js \
- && npm cache clean \
- && apk del ca-certificates \
+ && yarn cache clean \
+ && apk del ca-certificates make python \
  && rm -rf /tmp/* /var/cache/apk/*
 
 COPY files/run.sh /usr/local/bin/run.sh
