@@ -32,12 +32,12 @@ RUN apk update && \
 RUN wget -q https://github.com/TryGhost/Ghost/releases/download/$VERSION/Ghost-$VERSION.zip -P /tmp \
  && unzip -q /tmp/Ghost-$VERSION.zip -d /ghost \
  && cd /ghost \
- && npm install --build-from-source sqlite3 \ 
- && npm install --production \
+ && yarn install --build-from-source sqlite3 \
+ && yarn install --production \
  && mv content/themes/casper casper \
  && mv config.example.js config.js \
  && sed -i 's/127.0.0.1/0.0.0.0/g' config.js \
- && npm cache clean \
+ && yarn cache clean \
  && apk del ca-certificates make python \
  && rm -rf /tmp/* /var/cache/apk/*
 
