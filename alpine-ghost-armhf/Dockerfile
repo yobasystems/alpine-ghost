@@ -21,7 +21,7 @@ RUN apk update && \
     ca-certificates \
     bash \
     grep \
-    npm \
+    nodejs-npm \
     wget \
     make \
     python \
