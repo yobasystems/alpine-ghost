@@ -22,12 +22,16 @@ RUN apk update && \
     bash \
     grep \
     nodejs-npm \
-    wget \
-    make \
-    python \
     tar \
     tini \
-    su-exec
+    su-exec \
+    wget \
+    build-base \
+    make \
+    python \
+    gcc \
+    g++ \
+
 
 
 RUN wget -q https://github.com/TryGhost/Ghost/releases/download/$VERSION/Ghost-$VERSION.zip -P /tmp \
@@ -39,7 +43,7 @@ RUN wget -q https://github.com/TryGhost/Ghost/releases/download/$VERSION/Ghost-$
  && mv config.example.js config.js \
  && sed -i 's/127.0.0.1/0.0.0.0/g' config.js \
  && npm cache clean \
- && apk del ca-certificates make python \
+ && apk del ca-certificates build-base make python gcc g++ \
  && rm -rf /tmp/* /var/cache/apk/*
 
 COPY files/run.sh /usr/local/bin/run.sh
