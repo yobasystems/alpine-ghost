@@ -35,12 +35,14 @@ RUN apk update && \
  && wget -q https://github.com/TryGhost/Ghost/releases/download/$VERSION/Ghost-$VERSION.zip -P /tmp \
  && unzip -q /tmp/Ghost-$VERSION.zip -d /ghost \
  && cd /ghost \
- && npm install -g sqlite3 --unsafe-perm \
- && npm install --production \
+ && yarn global add node-gyp && \
+ && yarn global add sqlite3 --unsafe-perm \
+ && yarn install --production \
  && mv content/themes/casper casper \
  && mv config.example.js config.js \
  && sed -i 's/127.0.0.1/0.0.0.0/g' config.js \
- && npm cache clean \
+ && yarn global remove node-gyp && \
+ && yarn cache clean \
  && apk del ca-certificates make python unzip build-base gcc g++ \
  && rm -rf /tmp/* /var/cache/apk/*
 
