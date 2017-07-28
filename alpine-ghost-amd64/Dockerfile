@@ -1,7 +1,7 @@
 FROM yobasystems/alpine-nodejs:amd64-min
 LABEL maintainer "Dominic Taylor <dominic@yobasystems.co.uk>" architecture="AMD64/x86_64"
 
-ARG VERSION=0.11.10
+ARG VERSION=1.0.0
 
 ENV GHOST_NODE_VERSION_CHECK=false \
     GID=1027 \
@@ -17,19 +17,19 @@ VOLUME /ghost/content
 
 RUN apk update && \
     apk -U add \
-    unzip \
-    ca-certificates \
     bash \
+    ca-certificates \
     grep \
-    wget \
     make \
+    nodejs-npm \
     python \
+    su-exec \
     tar \
     tini \
-    su-exec \
-    yarn
-
-RUN wget -q https://github.com/TryGhost/Ghost/releases/download/$VERSION/Ghost-$VERSION.zip -P /tmp \
+    unzip \
+    wget \
+    yarn \
+ && wget -q https://github.com/TryGhost/Ghost/releases/download/$VERSION/Ghost-$VERSION.zip -P /tmp \
  && unzip -q /tmp/Ghost-$VERSION.zip -d /ghost \
  && cd /ghost \
  && yarn install --production \
@@ -37,7 +37,7 @@ RUN wget -q https://github.com/TryGhost/Ghost/releases/download/$VERSION/Ghost-$
  && mv config.example.js config.js \
  && sed -i 's/127.0.0.1/0.0.0.0/g' config.js \
  && yarn cache clean \
- && apk del ca-certificates make python \
+ && apk del ca-certificates make python unzip \
  && rm -rf /tmp/* /var/cache/apk/*
 
 COPY files/run.sh /usr/local/bin/run.sh
