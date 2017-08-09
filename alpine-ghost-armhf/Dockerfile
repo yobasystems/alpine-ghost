@@ -41,7 +41,7 @@ RUN apk update && \
  && mv content/themes/casper casper \
  && mv config.example.js config.js \
  && sed -i 's/127.0.0.1/0.0.0.0/g' config.js \
- && yarn global remove node-gyp && \
+ && yarn global remove node-gyp \
  && yarn cache clean \
  && apk del ca-certificates make python unzip build-base gcc g++ \
  && rm -rf /tmp/* /var/cache/apk/*
