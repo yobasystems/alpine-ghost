@@ -1,59 +1,39 @@
 FROM yobasystems/alpine-nodejs:amd64-min
 LABEL maintainer "Dominic Taylor <dominic@yobasystems.co.uk>" architecture="AMD64/x86_64"
 
-ARG VERSION=1.0.0
+ENV NODE_ENV production
+ENV GHOST_INSTALL /var/lib/ghost
+ENV GHOST_CONTENT /var/lib/ghost/content
+ENV GHOST_CLI_VERSION 1.9.8
 
-ENV GHOST_NODE_VERSION_CHECK=false \
-    GID=1027 \
-    UID=1027 \
-    URL=http://www.my-ghost-blog.com \
-    SYNTAX_HIGHLIGHTING=True \
-    CUSTOM_SMTP=False \
-    SERVICE=Sendgrid \
-    SMTP_PASS=12345 \
-    SMTP_USER=user
+RUN apk add --no-cache 'su-exec>=0.2' bash && \
+    npm install -g "ghost-cli@$GHOST_CLI_VERSION"
 
-VOLUME /ghost/content
+ENV GHOST_VERSION 2.7.1
 
-RUN apk update && \
-    apk -U add \
-    bash \
-    ca-certificates \
-    grep \
-    make \
-    nodejs-npm \
-    python \
-    su-exec \
-    tar \
-    tini \
-    unzip \
-    wget \
-    yarn \
- && wget -q https://github.com/TryGhost/Ghost/releases/download/$VERSION/Ghost-$VERSION.zip -P /tmp \
- && unzip -q /tmp/Ghost-$VERSION.zip -d /ghost \
- && cd /ghost \
- && yarn global add node-gyp \
- && yarn install --production \
- && mv content/themes/casper casper \
- && mv config.example.js config.js \
- && sed -i 's/127.0.0.1/0.0.0.0/g' config.js \
- && yarn global remove node-gyp \
- && yarn cache clean \
- && apk del ca-certificates make python unzip \
- && rm -rf /tmp/* /var/cache/apk/*
+RUN set -ex; \
+	mkdir -p "$GHOST_INSTALL"; \
+	chown node:node "$GHOST_INSTALL"; \
+	\
+	su-exec node ghost install "$GHOST_VERSION" --db sqlite3 --no-prompt --no-stack --no-setup --dir "$GHOST_INSTALL"; \
+	\
+	cd "$GHOST_INSTALL"; \
+	su-exec node ghost config --ip 0.0.0.0 --port 2368 --no-prompt --db sqlite3 --url http://localhost:2368 --dbpath "$GHOST_CONTENT/data/ghost.db"; \
+	su-exec node ghost config paths.contentPath "$GHOST_CONTENT"; \
+	\
+	su-exec node ln -s config.production.json "$GHOST_INSTALL/config.development.json"; \
+	readlink -f "$GHOST_INSTALL/config.development.json"; \
+	\
+	mv "$GHOST_CONTENT" "$GHOST_INSTALL/content.orig"; \
+	mkdir -p "$GHOST_CONTENT"; \
+	chown node:node "$GHOST_CONTENT"
 
-COPY files/run.sh /usr/local/bin/run.sh
-COPY files/smtp.conf /usr/local/etc/smtp.conf
-COPY files/prism.js /ghost/prismjs/prism.js
-COPY files/prism.css /ghost/prismjs/prism.css
-COPY files/prism.js.conf /usr/local/etc/prism.js.conf
-COPY files/prism.css.conf /usr/local/etc/prism.css.conf
 
-RUN chmod +x /usr/local/bin/run.sh
+WORKDIR $GHOST_INSTALL
+VOLUME $GHOST_CONTENT
+
+COPY files/docker-entrypoint.sh /usr/local/bin
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 2368
-
-LABEL description="Ghost Blog - Production Ready" \
-      ghost="Ghost v$VERSION"
-
-CMD ["tini","--","run.sh"]
+CMD ["node", "current/index.js"]
