@@ -5,7 +5,7 @@
 [![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-ghost.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/yobasystems/alpine-ghost/)
 
 [![Alpine Version](https://img.shields.io/badge/Alpine%20version-v3.18.4-green.svg?style=for-the-badge&logo=alpine-linux)](https://alpinelinux.org/)
-[![Ghost Version](https://img.shields.io/badge/Ghost%20version-v5.67.0-green.svg?maxAge=2592000?style=for-the-badge)](https://ghost.org/)
+[![Ghost Version](https://img.shields.io/badge/Ghost%20version-v5.67.0-green.svg?style=for-the-badge)](https://ghost.org/)
 
 
 This container image [(yobasystems/alpine-ghost)](https://hub.docker.com/r/yobasystems/alpine-ghost/) is based on the minimal [Alpine Linux](http://alpinelinux.org/) using the ```yobasystems/alpine-nodejs``` base container image [yobasystems/alpine-nodejs](https://hub.docker.com/r/yobasystems/alpine-nodejs/).
