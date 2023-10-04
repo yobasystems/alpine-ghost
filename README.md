@@ -1,47 +1,79 @@
-# Ghost Docker image running on Alpine Linux
+# Ghost container image running on Alpine Linux
 
-[![Docker Layers](https://img.shields.io/badge/docker%20layers-12-blue.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/) [![Docker Size](https://img.shields.io/badge/docker%20size-36.7%20MB-blue.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/) [![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-ghost.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/) [![Docker Pulls](https://img.shields.io/docker/pulls/yobasystems/alpine-ghost.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-ghost/)
+[![Docker Automated build](https://img.shields.io/docker/automated/yobasystems/alpine-ghost.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/yobasystems/alpine-ghost/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/yobasystems/alpine-ghost.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/yobasystems/alpine-ghost/)
+[![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-ghost.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/yobasystems/alpine-ghost/)
 
-[![Alpine Version](https://img.shields.io/badge/alpine%20version-v3.6.2-green.svg?maxAge=2592000?style=flat-square)](http://alpinelinux.org/) [![nodejs Version](https://img.shields.io/badge/nodejs%20version-v6.10.3-green.svg?maxAge=2592000?style=flat-square)](https://nodejs.org/en/) [![Ghost Version](https://img.shields.io/badge/Ghost%20version-v0.11.10-green.svg?maxAge=2592000?style=flat-square)](https://ghost.org/)
+[![Alpine Version](https://img.shields.io/badge/Alpine%20version-v3.18.4-green.svg?style=for-the-badge&logo=alpine-linux)](https://alpinelinux.org/)
+[![Ghost Version](https://img.shields.io/badge/Ghost%20version-v5.67.0-green.svg?maxAge=2592000?style=for-the-badge)](https://ghost.org/)
 
 
-This Docker image [(yobasystems/alpine-ghost)](https://hub.docker.com/r/yobasystems/alpine-ghost/) is based on the minimal [Alpine Linux](http://alpinelinux.org/) using the nodejs Alpine docker image [yobasystems/alpine-nodejs](https://hub.docker.com/r/yobasystems/alpine-nodejs/).
+This container image [(yobasystems/alpine-ghost)](https://hub.docker.com/r/yobasystems/alpine-ghost/) is based on the minimal [Alpine Linux](http://alpinelinux.org/) using the ```yobasystems/alpine-nodejs``` base container image [yobasystems/alpine-nodejs](https://hub.docker.com/r/yobasystems/alpine-nodejs/).
 
-##### Alpine Version 3.6.2 (Released Jun 17, 2017)
-##### Ghost Version 0.11.10
+### Alpine Version 3.18.4 (Released 2023-09-28)
+##### Ghost Version 5.67.0
 
 ----
 
-## What is Alpine Linux?
-Alpine Linux is a Linux distribution built around musl libc and BusyBox. The image is only 5 MB in size and has access to a package repository that is much more complete than other BusyBox based images. This makes Alpine Linux a great image base for utilities and even production applications. Read more about Alpine Linux here and you can see how their mantra fits in right at home with Docker images.
+## Table of Contents
+
+- [What is Alpine Linux?](#what-is-alpine-linux)
+- [Features](#features)
+- [Architectures](#architectures)
+- [Tags](#tags)
+- [Layers & Sizes](#layers--sizes)
+- [How to use this image](#how-to-use-this-image)
+- [Image contents & Vulnerability analysis](#image-contents--vulnerability-analysis)
+- [Source Repositories](#source-repositories)
+- [Container Registries](#container-registries)
+- [Links](#links)
+- [Donation](#donation)
+
+
+## 🏔️ What is Alpine Linux?
+Alpine Linux is a Linux distribution built around musl libc and BusyBox. The image is only 5 MB in size and has access to a package repository that is much more complete than other BusyBox based images. This makes Alpine Linux a great image base for utilities and even production applications. Read more about Alpine Linux here and you can see how their mantra fits in right at home with container images.
 
 ## What is Ghost?
+Ghost is a powerful app for new-media creators to publish, share, and grow a business around their content. It comes with modern tools to build a website, publish content, send newsletters & offer paid subscriptions to members.
 
-## Features
+## ✨ Features
 
-* Minimal size only 36.7 MB and only 12 layers
-* Memory usage is minimal on a simple install
-* Node Version 6.10.3
-* NPM Version 3.8.9
-* Ghost Version 0.11.10
-* su-exec instead of gosu because it's fully gosu compatible in a fraction of the file size.
+* Minimal size only, minimal layers
+* Memory usage is minimal on a simple install.
 
-## Architectures
 
-* ```:amd64```, ```:latest``` - 64 bit Intel/AMD (x86_64/amd64)
-* ```:i386```, ```:x86``` - 32 bit Intel/AMD (x86/i686)
+## 🏗️ Architectures
+
+* ```:amd64```, ```:x86_64``` - 64 bit Intel/AMD (x86_64/amd64)
 * ```:arm64v8```, ```:aarch64``` - 64 bit ARM (ARMv8/aarch64)
 * ```:arm32v7```, ```:armhf``` - 32 bit ARM (ARMv7/armhf)
 
-#### PLEASE CHECK TAGS BELOW FOR SUPPORTED ARCHITECTURES, THE ABOVE IS A LIST OF EXPLANATION
+#### 📝 PLEASE CHECK TAGS BELOW FOR SUPPORTED ARCHITECTURES, THE ABOVE IS A LIST OF EXPLANATION
 
-## Tags
+## 🏷️ Tags
 
-* ```:latest```, ```:amd64``` latest branch based on amd64
+* ```:latest``` latest branch based (Automatic Architecture Selection)
 * ```:master``` master branch usually inline with latest
-* ```:v0.0.0``` version number related to docker version
-* ```:armhf```, ```:arm32v7``` Armv7 based on latest tag but arm architecture
+* ```:amd64```, ```:x86_64```  amd64 based on latest tag but amd64 architecture
+* ```:aarch64```, ```:arm64v8``` Armv8 based on latest tag but arm64 architecture
+* ```:armhf```, ```:arm32v7``` Armv7 based on latest tag but arm32 architecture
+* ```:v5.67.0``` version number related to Ghost version
 
+## 📏 Layers & Sizes
+
+![Version](https://img.shields.io/badge/version-amd64-blue.svg?style=for-the-badge)
+![MicroBadger Layers (tag)](https://img.shields.io/docker/layers/yobasystems/alpine-ghost/amd64.svg?style=for-the-badge)
+![MicroBadger Size (tag)](https://img.shields.io/docker/image-size/yobasystems/alpine-ghost/amd64.svg?style=for-the-badge)
+
+![Version](https://img.shields.io/badge/version-aarch64-blue.svg?style=for-the-badge)
+![MicroBadger Layers (tag)](https://img.shields.io/docker/layers/yobasystems/alpine-ghost/aarch64.svg?style=for-the-badge)
+![MicroBadger Size (tag)](https://img.shields.io/docker/image-size/yobasystems/alpine-ghost/aarch64.svg?style=for-the-badge)
+
+![Version](https://img.shields.io/badge/version-armhf-blue.svg?style=for-the-badge)
+![MicroBadger Layers (tag)](https://img.shields.io/docker/layers/yobasystems/alpine-ghost/armhf.svg?style=for-the-badge)
+![MicroBadger Size (tag)](https://img.shields.io/docker/image-size/yobasystems/alpine-ghost/armhf.svg?style=for-the-badge)
+
+## 🚀 How to use this image
 ## Environment Variables:
 
 ### Main config.js parameters:
@@ -89,6 +121,8 @@ docker run --name some-ghost --volumes-from some-ghost-data yobasystems/alpine-g
 
 ## Docker Compose example:
 
+##### (Please pass your own credentials or let them be generated automatically, don't use these ones for production!!)
+
 ```yalm
 ghost:
   image: yobasystems/alpine-ghost
@@ -109,16 +143,44 @@ ghost:
   restart: always
 ```
 
-## Source Repository
+## 🔍 Image contents & Vulnerability analysis
 
-* [Bitbucket - yobasystems/alpine-ghost](https://bitbucket.org/yobasystems/alpine-ghost/)
+| PACKAGE NAME          | PACKAGE VERSION | VULNERABILITIES |
+|-----------------------|-----------------|-----------------|
+
+
+## 📚 Source Repositories
 
 * [Github - yobasystems/alpine-ghost](https://github.com/yobasystems/alpine-ghost)
 
-## Links
+* [Gitlab - yobasystems/alpine-ghost](https://gitlab.com/yobasystems/alpine-ghost)
+
+* [Bitbucket - yobasystems/alpine-ghost](https://bitbucket.org/yobasystems/alpine-ghost/)
+
+
+## 🐳 Container Registries
+
+* [Dockerhub - yobasystems/alpine-ghost](https://hub.docker.com/r/yobasystems/alpine-ghost/)
+
+* [Quay.io - yobasystems/alpine-ghost](https://quay.io/repository/yobasystems/alpine-ghost)
+
+
+## 🔗 Links
 
 * [Yoba Systems](https://www.yobasystems.co.uk/)
 
-* [Dockerhub - yobasystems](https://hub.docker.com/u/yobasystems/)
+* [Github - Yoba Systems](https://github.com/yobasystems/)
 
-* [Quay.io - yobasystems](https://quay.io/organization/yobasystems)
+* [Dockerhub - Yoba Systems](https://hub.docker.com/u/yobasystems/)
+
+* [Quay.io - Yoba Systems](https://quay.io/organization/yobasystems)
+
+* [Maintainer - Dominic Taylor](https://github.com/dominictayloruk)
+
+## 💰 Donation
+
+[![BMAC](https://img.shields.io/badge/BUY%20ME%20A%20COFFEE-£5-blue.svg?style=for-the-badge&logo=buy-me-a-coffee)](https://www.buymeacoffee.com/dominictayloruk?new=1)
+
+[![BITCOIN](https://img.shields.io/badge/BTC-bc1q7hy8qmyvq7rw6slrna7yffcdnj9rcg4e9xjecc-blue.svg?style=for-the-badge&logo=bitcoin)](bitcoin:bc1q7hy8qmyvq7rw6slrna7yffcdnj9rcg4e9xjecc)
+
+[![ETHEREUM](https://img.shields.io/badge/ETH-0xb6bE2e4da3d86b50Bdae1F9B6960c23dd87C532C-blue.svg?style=for-the-badge&logo=ethereum)](ethereum:0xb6bE2e4da3d86b50Bdae1F9B6960c23dd87C532C)

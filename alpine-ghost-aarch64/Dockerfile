@@ -1,10 +1,10 @@
-FROM yobasystems/alpine-nodejs:min-armhf
+FROM yobasystems/alpine-nodejs:min-aarch64
 
 ARG BUILD_DATE
 ARG VCS_REF
 
 LABEL maintainer="Dominic Taylor <dominic@yoba.systems>" \
-    architecture="arm32v7/armhf" \
+    architecture="arm64v8/aarch64" \
     ghost-version="5.67.0" \
     alpine-version="3.18.4" \
     build="04-Oct-2023" \
