@@ -21,22 +21,31 @@ LABEL maintainer="Dominic Taylor <dominic@yoba.systems>" \
 ENV NODE_ENV production
 ENV GHOST_INSTALL /var/lib/ghost
 ENV GHOST_CONTENT /var/lib/ghost/content
-ENV GHOST_CLI_VERSION 1.25.1
-
-RUN apk add --no-cache 'su-exec>=0.2' bash python3 && \
-    npm install -g node-gyp && \
-    npm install -g "ghost-cli@$GHOST_CLI_VERSION"
-
+ENV GHOST_CLI_VERSION 1.25.2
 ENV GHOST_VERSION 5.67.0
 
-RUN set -ex; \
+RUN apk add --no-cache 'su-exec>=0.2' bash
+
+RUN set -eux; \
+	npm install -g "ghost-cli@$GHOST_CLI_VERSION"; \
+	npm cache clean --force
+
+RUN set -eux; \
 	mkdir -p "$GHOST_INSTALL"; \
 	chown node:node "$GHOST_INSTALL"; \
 	\
-	su-exec node ghost install "$GHOST_VERSION" --db sqlite3 --no-prompt --no-stack --no-setup --dir "$GHOST_INSTALL"; \
+	apkDel=; \
+	\
+	installCmd='su-exec node ghost install "$GHOST_VERSION" --db mysql --dbhost mysql --no-prompt --no-stack --no-setup --dir "$GHOST_INSTALL"'; \
+	if ! eval "$installCmd"; then \
+		virtual='.build-deps-ghost'; \
+		apkDel="$apkDel $virtual"; \
+		apk add --no-cache --virtual "$virtual" g++ linux-headers make python3; \
+		eval "$installCmd"; \
+	fi; \
 	\
 	cd "$GHOST_INSTALL"; \
-	su-exec node ghost config --ip 0.0.0.0 --port 2368 --no-prompt --db sqlite3 --url http://localhost:2368 --dbpath "$GHOST_CONTENT/data/ghost.db"; \
+	su-exec node ghost config --no-prompt --ip '::' --port 2368 --url 'http://localhost:2368'; \
 	su-exec node ghost config paths.contentPath "$GHOST_CONTENT"; \
 	\
 	su-exec node ln -s config.production.json "$GHOST_INSTALL/config.development.json"; \
@@ -44,7 +53,42 @@ RUN set -ex; \
 	\
 	mv "$GHOST_CONTENT" "$GHOST_INSTALL/content.orig"; \
 	mkdir -p "$GHOST_CONTENT"; \
-	chown node:node "$GHOST_CONTENT"
+	chown node:node "$GHOST_CONTENT"; \
+	chmod 1777 "$GHOST_CONTENT"; \
+	\
+	cd "$GHOST_INSTALL/current"; \
+	packages="$(node -p ' \
+		var ghost = require("./package.json"); \
+		var transform = require("./node_modules/@tryghost/image-transform/package.json"); \
+		[ \
+			"sharp@" + transform.optionalDependencies["sharp"], \
+			"sqlite3@" + ghost.optionalDependencies["sqlite3"], \
+		].join(" ") \
+	')"; \
+	if echo "$packages" | grep 'undefined'; then exit 1; fi; \
+	for package in $packages; do \
+		installCmd='su-exec node yarn add "$package" --force'; \
+		if ! eval "$installCmd"; then \
+			virtualPackages='g++ make python3'; \
+			case "$package" in \
+				sharp@*) echo >&2 "sorry: libvips 8.12.1 in Alpine 3.15 is not new enough (8.12.2+) for sharp 0.30 😞"; continue ;; \
+			esac; \
+			virtual=".build-deps-${package%%@*}"; \
+			apkDel="$apkDel $virtual"; \
+			apk add --no-cache --virtual "$virtual" $virtualPackages; \
+			\
+			eval "$installCmd --build-from-source"; \
+		fi; \
+	done; \
+	\
+	if [ -n "$apkDel" ]; then \
+		apk del --no-network $apkDel; \
+	fi; \
+	\
+	su-exec node yarn cache clean; \
+	su-exec node npm cache clean --force; \
+	npm cache clean --force; \
+	rm -rv /tmp/yarn* /tmp/v8*
 
 
 WORKDIR $GHOST_INSTALL
