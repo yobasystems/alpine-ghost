@@ -1,4 +1,4 @@
-FROM yobasystems/alpine-nodejs:min-amd64
+FROM yobasystems/alpine-nodejs:amd64
 
 ARG BUILD_DATE
 ARG VCS_REF
