@@ -7,7 +7,7 @@ LABEL maintainer="Dominic Taylor <dominic@yoba.systems>" \
     architecture="arm64v8/aarch64" \
     ghost-version="5.67.0" \
     alpine-version="3.18.4" \
-    build="04-Oct-2023" \
+    build="05-Oct-2023" \
     org.opencontainers.image.title="alpine-ghost" \
     org.opencontainers.image.description="Ghost container image running on Alpine Linux" \
     org.opencontainers.image.authors="Dominic Taylor <dominic@yoba.systems>" \
@@ -23,7 +23,7 @@ ENV GHOST_INSTALL /var/lib/ghost
 ENV GHOST_CONTENT /var/lib/ghost/content
 ENV GHOST_CLI_VERSION 1.25.1
 
-RUN apk add --no-cache 'su-exec>=0.2' bash && \
+RUN apk add --no-cache 'su-exec>=0.2' bash python3 && \
     npm install -g node-gyp && \
     npm install -g "ghost-cli@$GHOST_CLI_VERSION"
 
