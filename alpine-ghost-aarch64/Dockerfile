@@ -24,6 +24,7 @@ ENV GHOST_CONTENT /var/lib/ghost/content
 ENV GHOST_CLI_VERSION 1.25.1
 
 RUN apk add --no-cache 'su-exec>=0.2' bash && \
+    npm install -g node-gyp && \
     npm install -g "ghost-cli@$GHOST_CLI_VERSION"
 
 ENV GHOST_VERSION 5.67.0
