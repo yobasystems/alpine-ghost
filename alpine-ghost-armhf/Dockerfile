@@ -7,7 +7,7 @@ LABEL maintainer="Dominic Taylor <dominic@yoba.systems>" \
     architecture="arm32v7/armhf" \
     ghost-version="5.67.0" \
     alpine-version="3.18.4" \
-    build="05-Oct-2023" \
+    build="07-Oct-2023" \
     org.opencontainers.image.title="alpine-ghost" \
     org.opencontainers.image.description="Ghost container image running on Alpine Linux" \
     org.opencontainers.image.authors="Dominic Taylor <dominic@yoba.systems>" \
@@ -69,7 +69,7 @@ RUN set -eux; \
 	for package in $packages; do \
 		installCmd='su-exec node yarn add "$package" --force'; \
 		if ! eval "$installCmd"; then \
-			virtualPackages='g++ make python3'; \
+			virtualPackages='g++ make python3 gyp-pyc gyp'; \
 			case "$package" in \
 				sharp@*) echo >&2 "sorry: libvips 8.12.1 in Alpine 3.15 is not new enough (8.12.2+) for sharp 0.30 😞"; continue ;; \
 			esac; \
