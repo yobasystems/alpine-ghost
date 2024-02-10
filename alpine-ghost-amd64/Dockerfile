@@ -14,7 +14,7 @@ LABEL maintainer="Dominic Taylor <dominic@yoba.systems>" \
     org.opencontainers.image.vendor="Yoba Systems" \
     org.opencontainers.image.version="v5.79.1" \
     org.opencontainers.image.url="https://hub.docker.com/r/yobasystems/alpine-ghost/" \
-    org.opencontainers.image.source="https://github.com/yobasystems/alpine-ghost" \
+    org.opencontainers.image.source="https://github.com/yobasystems/alpine-nodejs" \
     org.opencontainers.image.revision=$VCS_REF \
     org.opencontainers.image.created=$BUILD_DATE
 
