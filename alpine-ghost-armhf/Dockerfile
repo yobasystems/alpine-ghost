@@ -6,13 +6,13 @@ ARG VCS_REF
 LABEL maintainer="Dominic Taylor <dominic@yoba.systems>" \
     architecture="arm32v7/armhf" \
     ghost-version="5.79.1" \
-    alpine-version="3.19.0" \
+    alpine-version="3.19.1" \
     build="11-Feb-2024" \
     org.opencontainers.image.title="alpine-ghost" \
     org.opencontainers.image.description="Ghost container image running on Alpine Linux" \
     org.opencontainers.image.authors="Dominic Taylor <dominic@yoba.systems>" \
     org.opencontainers.image.vendor="Yoba Systems" \
-    org.opencontainers.image.version="v5.79.1" \
+    org.opencontainers.image.version="5.79.1" \
     org.opencontainers.image.url="https://hub.docker.com/r/yobasystems/alpine-ghost/" \
     org.opencontainers.image.source="https://github.com/yobasystems/alpine-ghost" \
 	org.opencontainers.image.base.name="docker.io/yobasystems/alpine-nodejs:armhf" \
