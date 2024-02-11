@@ -7,14 +7,15 @@ LABEL maintainer="Dominic Taylor <dominic@yoba.systems>" \
     architecture="amd64/x86_64" \
     ghost-version="5.79.1" \
     alpine-version="3.19.0" \
-    build="10-Feb-2024" \
+    build="11-Feb-2024" \
     org.opencontainers.image.title="alpine-ghost" \
     org.opencontainers.image.description="Ghost container image running on Alpine Linux" \
     org.opencontainers.image.authors="Dominic Taylor <dominic@yoba.systems>" \
     org.opencontainers.image.vendor="Yoba Systems" \
     org.opencontainers.image.version="v5.79.1" \
     org.opencontainers.image.url="https://hub.docker.com/r/yobasystems/alpine-ghost/" \
-    org.opencontainers.image.source="https://github.com/yobasystems/alpine-nodejs" \
+    org.opencontainers.image.source="https://github.com/yobasystems/alpine-ghost" \
+	org.opencontainers.image.base.name="docker.io/yobasystems/alpine-nodejs:amd64" \
     org.opencontainers.image.revision=$VCS_REF \
     org.opencontainers.image.created=$BUILD_DATE
 
