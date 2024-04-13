@@ -5,13 +5,13 @@
 [![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-ghost.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/yobasystems/alpine-ghost/)
 
 [![Alpine Version](https://img.shields.io/badge/Alpine%20version-v3.19.1-green.svg?style=for-the-badge&logo=alpine-linux)](https://alpinelinux.org/)
-[![Ghost Version](https://img.shields.io/badge/Ghost%20version-v5.79.1-green.svg?style=for-the-badge)](https://ghost.org/)
+[![Ghost Version](https://img.shields.io/badge/Ghost%20version-v5.82.1-green.svg?style=for-the-badge)](https://ghost.org/)
 
 
 This container image [(yobasystems/alpine-ghost)](https://hub.docker.com/r/yobasystems/alpine-ghost/) is based on the minimal [Alpine Linux](http://alpinelinux.org/) using the ```yobasystems/alpine-nodejs``` base container image [yobasystems/alpine-nodejs](https://hub.docker.com/r/yobasystems/alpine-nodejs/).
 
 ### Alpine Version 3.19.1 (Released 2023-01-26)
-##### Ghost Version 5.79.1
+##### Ghost Version 5.82.1
 
 ----
 
@@ -57,7 +57,7 @@ Ghost is a powerful app for new-media creators to publish, share, and grow a bus
 * ```:amd64```, ```:x86_64```  amd64 based on latest tag but amd64 architecture
 * ```:aarch64```, ```:arm64v8``` Armv8 based on latest tag but arm64 architecture
 * ```:armhf```, ```:arm32v7``` Armv7 based on latest tag but arm32 architecture
-* ```:v5.79.1``` version number related to Ghost version
+* ```:v5.82.1``` version number related to Ghost version
 
 ## 📏 Layers & Sizes
 
