@@ -5,14 +5,14 @@ ARG VCS_REF
 
 LABEL maintainer="Dominic Taylor <dominic@yoba.systems>" \
     architecture="arm64v8/aarch64" \
-    ghost-version="5.82.1" \
-    alpine-version="3.19.1" \
-    build="13-Apr-2024" \
+    ghost-version="5.89.3" \
+    alpine-version="3.20.2" \
+    build="19-Aug-2024" \
     org.opencontainers.image.title="alpine-ghost" \
     org.opencontainers.image.description="Ghost container image running on Alpine Linux" \
     org.opencontainers.image.authors="Dominic Taylor <dominic@yoba.systems>" \
     org.opencontainers.image.vendor="Yoba Systems" \
-    org.opencontainers.image.version="5.82.1" \
+    org.opencontainers.image.version="5.89.3" \
     org.opencontainers.image.url="https://hub.docker.com/r/yobasystems/alpine-ghost/" \
     org.opencontainers.image.source="https://github.com/yobasystems/alpine-ghost" \
 	org.opencontainers.image.base.name="docker.io/yobasystems/alpine-nodejs:aarch64" \
@@ -23,7 +23,7 @@ ENV NODE_ENV production
 ENV GHOST_INSTALL /var/lib/ghost
 ENV GHOST_CONTENT /var/lib/ghost/content
 ENV GHOST_CLI_VERSION 1.25.3
-ENV GHOST_VERSION 5.82.1
+ENV GHOST_VERSION 5.89.3
 
 RUN apk add --no-cache 'su-exec>=0.2' bash
 
