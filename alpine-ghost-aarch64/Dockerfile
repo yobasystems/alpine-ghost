@@ -23,7 +23,7 @@ RUN apk add --no-cache \
 # add "bash" for "[["
 		bash
 
-ENV GOSU_VERSION 1.17
+ENV GOSU_VERSION=1.17
 RUN set -eux; \
 	\
 	apk add --no-cache --virtual .gosu-deps \
@@ -52,17 +52,16 @@ RUN set -eux; \
 	gosu nobody true
 RUN set -eux; ln -svf gosu /usr/local/bin/su-exec; su-exec nobody true # backwards compatibility (TODO remove in Ghost 6+)
 
-ENV NODE_ENV production
+ENV NODE_ENV=production \
+    GHOST_CLI_VERSION=1.26.1
 
-ENV GHOST_CLI_VERSION 1.26.1
 RUN set -eux; \
     npm install -g "ghost-cli@$GHOST_CLI_VERSION" --force --ignore-engines; \
     npm cache clean --force
-
-ENV GHOST_INSTALL /var/lib/ghost
-ENV GHOST_CONTENT /var/lib/ghost/content
-
-ENV GHOST_VERSION 5.108.1
+    
+ENV GHOST_INSTALL=/var/lib/ghost \
+    GHOST_CONTENT=/var/lib/ghost/content \
+    GHOST_VERSION=5.108.1
 
 RUN set -eux; \
 	mkdir -p "$GHOST_INSTALL"; \
