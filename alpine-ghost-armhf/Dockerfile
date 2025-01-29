@@ -1,4 +1,4 @@
-FROM yobasystems/alpine-nodejs:min-armhf
+FROM yobasystems/alpine-nodejs:armhf
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -15,7 +15,7 @@ LABEL maintainer="Dominic Taylor <dominic@yoba.systems>" \
     org.opencontainers.image.version="5.108.1" \
     org.opencontainers.image.url="https://hub.docker.com/r/yobasystems/alpine-ghost/" \
     org.opencontainers.image.source="https://github.com/yobasystems/alpine-ghost" \
-	org.opencontainers.image.base.name="docker.io/yobasystems/alpine-nodejs:min-armhf" \
+	org.opencontainers.image.base.name="docker.io/yobasystems/alpine-nodejs:armhf" \
     org.opencontainers.image.revision=$VCS_REF \
     org.opencontainers.image.created=$BUILD_DATE
 
