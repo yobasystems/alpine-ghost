@@ -1,4 +1,4 @@
-FROM yobasystems/alpine-nodejs:armhf
+FROM yobasystems/alpine-nodejs:18.18.0
 
 ARG BUILD_DATE
 ARG VCS_REF
