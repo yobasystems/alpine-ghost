@@ -1,8 +1,10 @@
 #!/bin/bash
 set -e
+
+# allow the container to be started with `--user`
 if [[ "$*" == node*current/index.js* ]] && [ "$(id -u)" = '0' ]; then
 	find "$GHOST_CONTENT" \! -user node -exec chown node '{}' +
-	exec su-exec node "$BASH_SOURCE" "$@"
+	exec gosu node "$BASH_SOURCE" "$@"
 fi
 
 if [[ "$*" == node*current/index.js* ]]; then
