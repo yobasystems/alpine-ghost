@@ -19,65 +19,103 @@ LABEL maintainer="Dominic Taylor <dominic@yoba.systems>" \
     org.opencontainers.image.revision=$VCS_REF \
     org.opencontainers.image.created=$BUILD_DATE
 
-# Fix ENV syntax to use recommended format
-ENV NODE_ENV=production \
-    GHOST_INSTALL=/var/lib/ghost \
-    GHOST_CONTENT=/var/lib/ghost/content \
-    GHOST_CLI_VERSION=1.25.3 \
-    GHOST_VERSION=5.108.1
-
-# Install base dependencies
-RUN apk add --no-cache 'su-exec>=0.2' bash g++ make python3 linux-headers gyp-pyc gyp
-
-# Install Ghost CLI and prepare directories
-RUN set -eux; \
-    mkdir -p "$GHOST_INSTALL"; \
-    chown node:node "$GHOST_INSTALL"; \
-    npm install -g "ghost-cli@$GHOST_CLI_VERSION" --force; \
-    npm cache clean --force
-
-# Install Ghost and configure
-RUN set -eux; \
-    cd "$GHOST_INSTALL"; \
-    su-exec node ghost install "$GHOST_VERSION" --db mysql --dbhost mysql --no-prompt --no-stack --no-setup --dir "$GHOST_INSTALL"; \
-    su-exec node ghost config --no-prompt --ip '::' --port 2368 --url 'http://localhost:2368'; \
-    su-exec node ghost config paths.contentPath "$GHOST_CONTENT"; \
-    \
-    su-exec node ln -s config.production.json "$GHOST_INSTALL/config.development.json"; \
-    readlink -f "$GHOST_INSTALL/config.development.json"; \
-    \
-    mv "$GHOST_CONTENT" "$GHOST_INSTALL/content.orig"; \
-    mkdir -p "$GHOST_CONTENT"; \
-    chown node:node "$GHOST_CONTENT"; \
-    chmod 1777 "$GHOST_CONTENT"
-
-# Install additional packages
-RUN set -eux; \
-    cd "$GHOST_INSTALL/current"; \
-    packages="$(node -p ' \
-        var ghost = require("./package.json"); \
-        var transform = require("./node_modules/@tryghost/image-transform/package.json"); \
-        [ \
-            "sqlite3@" + ghost.optionalDependencies["sqlite3"], \
-        ].join(" ") \
-    ')"; \
-    if echo "$packages" | grep 'undefined'; then exit 1; fi; \
-    for package in $packages; do \
-        su-exec node yarn add "$package" --force --build-from-source; \
-    done; \
-    \
-    su-exec node yarn cache clean; \
-    su-exec node npm cache clean --force; \
-    npm cache clean --force; \
-    rm -rv /tmp/yarn* /tmp/v8*
-
-
-    WORKDIR $GHOST_INSTALL
-    VOLUME $GHOST_CONTENT
-    
-    COPY files/docker-entrypoint.sh /usr/local/bin
-    ENTRYPOINT ["docker-entrypoint.sh"]
-    
-    EXPOSE 2368
-    CMD ["node", "current/index.js"]
+	ENV GOSU_VERSION=1.17
+	RUN set -eux; \
+		apk add --no-cache --virtual .gosu-deps \
+			ca-certificates \
+			dpkg \
+			gnupg \
+			bash; \
+		dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"; \
+		wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch"; \
+		wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc"; \
+		export GNUPGHOME="$(mktemp -d)"; \
+		gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4; \
+		gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu; \
+		gpgconf --kill all; \
+		rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc; \
+		apk del --no-network .gosu-deps; \
+		chmod +x /usr/local/bin/gosu; \
+		gosu --version; \
+		gosu nobody true
+	
+	# Backwards compatibility symlink
+	RUN set -eux; ln -svf gosu /usr/local/bin/su-exec; su-exec nobody true
+	
+	ENV NODE_ENV=production \
+		GHOST_CLI_VERSION=1.26.1 \
+		GHOST_INSTALL=/var/lib/ghost \
+		GHOST_CONTENT=/var/lib/ghost/content \
+		GHOST_VERSION=5.108.1
+	
+	# Install Ghost CLI
+	RUN set -eux; \
+		npm install -g "ghost-cli@$GHOST_CLI_VERSION"; \
+		npm cache clean --force
+	
+	# Install Ghost and configure
+	RUN set -eux; \
+		mkdir -p "$GHOST_INSTALL"; \
+		chown node:node "$GHOST_INSTALL"; \
+		\
+		apkDel=; \
+		\
+		installCmd='gosu node ghost install "$GHOST_VERSION" --db mysql --dbhost mysql --no-prompt --no-stack --no-setup --dir "$GHOST_INSTALL"'; \
+		if ! eval "$installCmd"; then \
+			virtual='.build-deps-ghost'; \
+			apkDel="$apkDel $virtual"; \
+			apk add --no-cache --virtual "$virtual" g++ linux-headers make python3; \
+			eval "$installCmd"; \
+		fi; \
+		\
+		cd "$GHOST_INSTALL"; \
+		gosu node ghost config --no-prompt --ip '::' --port 2368 --url 'http://localhost:2368'; \
+		gosu node ghost config paths.contentPath "$GHOST_CONTENT"; \
+		\
+		gosu node ln -s config.production.json "$GHOST_INSTALL/config.development.json"; \
+		readlink -f "$GHOST_INSTALL/config.development.json"; \
+		\
+		mv "$GHOST_CONTENT" "$GHOST_INSTALL/content.orig"; \
+		mkdir -p "$GHOST_CONTENT"; \
+		chown node:node "$GHOST_CONTENT"; \
+		chmod 1777 "$GHOST_CONTENT"; \
+		\
+		cd "$GHOST_INSTALL/current"; \
+		packages="$(node -p ' \
+			var ghost = require("./package.json"); \
+			var transform = require("./node_modules/@tryghost/image-transform/package.json"); \
+			[ \
+				"sqlite3@" + ghost.optionalDependencies["sqlite3"], \
+			].join(" ") \
+		')"; \
+		if echo "$packages" | grep 'undefined'; then exit 1; fi; \
+		for package in $packages; do \
+			installCmd='gosu node yarn add "$package" --force'; \
+			if ! eval "$installCmd"; then \
+				virtualPackages='g++ make python3 py3-setuptools'; \
+				virtual=".build-deps-${package%%@*}"; \
+				apkDel="$apkDel $virtual"; \
+				apk add --no-cache --virtual "$virtual" $virtualPackages; \
+				\
+				eval "$installCmd --build-from-source"; \
+			fi; \
+		done; \
+		\
+		if [ -n "$apkDel" ]; then \
+			apk del --no-network $apkDel; \
+		fi; \
+		\
+		gosu node yarn cache clean; \
+		gosu node npm cache clean --force; \
+		npm cache clean --force; \
+		rm -rv /tmp/yarn* /tmp/v8*
+	
+	WORKDIR $GHOST_INSTALL
+	VOLUME $GHOST_CONTENT
+	
+	COPY files/docker-entrypoint.sh /usr/local/bin
+	ENTRYPOINT ["docker-entrypoint.sh"]
+	
+	EXPOSE 2368
+	CMD ["node", "current/index.js"]
 	
