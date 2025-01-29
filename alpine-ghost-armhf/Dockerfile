@@ -25,11 +25,22 @@ ENV GHOST_CONTENT /var/lib/ghost/content
 ENV GHOST_CLI_VERSION 1.25.3
 ENV GHOST_VERSION 5.108.1
 
-RUN apk add --no-cache 'su-exec>=0.2' bash
+# Install base dependencies
+RUN apk add --no-cache 'su-exec>=0.2' bash g++ make python3 linux-headers
 
+# Install Ghost CLI
 RUN set -eux; \
-	npm install -g "ghost-cli@$GHOST_CLI_VERSION"; \
-	npm cache clean --force
+    mkdir -p "$GHOST_INSTALL"; \
+    chown node:node "$GHOST_INSTALL"; \
+    npm install -g "ghost-cli@$GHOST_CLI_VERSION"; \
+    npm cache clean --force
+
+# Install Ghost
+RUN set -eux; \
+    cd "$GHOST_INSTALL"; \
+    su-exec node ghost install "$GHOST_VERSION" --db mysql --dbhost mysql --no-prompt --no-stack --no-setup --dir "$GHOST_INSTALL"; \
+    su-exec node ghost config --no-prompt --ip '::' --port 2368 --url 'http://localhost:2368'; \
+    su-exec node ghost config paths.contentPath "$GHOST_CONTENT"
 
 RUN set -eux; \
 	mkdir -p "$GHOST_INSTALL"; \
