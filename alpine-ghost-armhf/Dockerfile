@@ -6,8 +6,8 @@ ARG VCS_REF
 LABEL maintainer="Dominic Taylor <dominic@yoba.systems>" \
     architecture="arm32v7/armhf" \
     ghost-version="5.108.1" \
-    alpine-version="3.21.1" \
-    build="29-Jan-2025" \
+    alpine-version="3.21.2" \
+    build="31-Jan-2025" \
     org.opencontainers.image.title="alpine-ghost" \
     org.opencontainers.image.description="Ghost container image running on Alpine Linux" \
     org.opencontainers.image.authors="Dominic Taylor <dominic@yoba.systems>" \
