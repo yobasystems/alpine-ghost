@@ -1,4 +1,4 @@
-FROM yobasystems/alpine-nodejs:18.18.0
+FROM yobasystems/alpine-nodejs:22.13.0
 
 ARG BUILD_DATE
 ARG VCS_REF
