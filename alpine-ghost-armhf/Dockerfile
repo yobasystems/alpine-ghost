@@ -5,14 +5,14 @@ ARG VCS_REF
 
 LABEL maintainer="Dominic Taylor <dominic@yoba.systems>" \
     architecture="arm32v7/armhf" \
-    ghost-version="5.108.1" \
-    alpine-version="3.21.2" \
-    build="31-Jan-2025" \
+    ghost-version="5.130.3" \
+    alpine-version="3.22.1" \
+    build="03-Aug-2025" \
     org.opencontainers.image.title="alpine-ghost" \
     org.opencontainers.image.description="Ghost container image running on Alpine Linux" \
     org.opencontainers.image.authors="Dominic Taylor <dominic@yoba.systems>" \
     org.opencontainers.image.vendor="Yoba Systems" \
-    org.opencontainers.image.version="5.108.1" \
+    org.opencontainers.image.version="5.130.3" \
     org.opencontainers.image.url="https://hub.docker.com/r/yobasystems/alpine-ghost/" \
     org.opencontainers.image.source="https://github.com/yobasystems/alpine-ghost" \
 	org.opencontainers.image.base.name="docker.io/yobasystems/alpine-nodejs:armhf" \
@@ -61,7 +61,7 @@ RUN set -eux; \
     
 ENV GHOST_INSTALL=/var/lib/ghost \
     GHOST_CONTENT=/var/lib/ghost/content \
-    GHOST_VERSION=5.108.1
+    GHOST_VERSION=5.130.3
 
 RUN set -eux; \
 	mkdir -p "$GHOST_INSTALL"; \
