@@ -10,7 +10,7 @@
 
 This container image [(yobasystems/alpine-ghost)](https://hub.docker.com/r/yobasystems/alpine-ghost/) is based on the minimal [Alpine Linux](http://alpinelinux.org/) using the ```yobasystems/alpine-nodejs``` base container image [yobasystems/alpine-nodejs](https://hub.docker.com/r/yobasystems/alpine-nodejs/).
 
-### Alpine Version 3.22.1 (Released 2025-01-06)
+### Alpine Version 3.22.1 (Released 2025-07-15)
 ##### Ghost Version 5.130.3
 
 ----
