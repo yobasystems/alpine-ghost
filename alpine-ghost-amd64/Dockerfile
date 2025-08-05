@@ -19,7 +19,7 @@ LABEL maintainer="Dominic Taylor <dominic@yoba.systems>" \
     org.opencontainers.image.revision=$VCS_REF \
     org.opencontainers.image.created=$BUILD_DATE
 
-	RUN apk add --no-cache \
+RUN apk add --no-cache \
 # add "bash" for "[["
 		bash
 
