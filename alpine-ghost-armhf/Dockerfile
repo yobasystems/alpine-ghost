@@ -1,4 +1,4 @@
-FROM yobasystems/alpine-nodejs:18.18.0
+FROM yobasystems/alpine-nodejs:lts
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -53,7 +53,7 @@ RUN set -eux; \
 RUN set -eux; ln -svf gosu /usr/local/bin/su-exec; su-exec nobody true # backwards compatibility (TODO remove in Ghost 6+)
 
 ENV NODE_ENV=production \
-    GHOST_CLI_VERSION=1.26.1
+    GHOST_CLI_VERSION=1.28.2
 
 RUN set -eux; \
     npm install -g "ghost-cli@$GHOST_CLI_VERSION"; \
@@ -107,13 +107,12 @@ RUN set -eux; \
 	')"; \
 	if echo "$packages" | grep 'undefined'; then exit 1; fi; \
 	for package in $packages; do \
-		installCmd='gosu node yarn add "$package" --force'; \
+		installCmd='gosu node npm install "$package" --force'; \
 		if ! eval "$installCmd"; then \
 # must be some non-amd64 architecture pre-built binaries aren't published for, so let's install some build deps and do-it-all-over-again
 			virtualPackages='g++ make python3 py3-setuptools'; \
 			case "$package" in \
-				# TODO sharp@*) virtualPackages="$virtualPackages pkgconf vips-dev"; \
-				sharp@*) echo >&2 "sorry: libvips 8.12.1 in Alpine 3.15 is not new enough (8.12.2+) for sharp 0.30 😞"; continue ;; \
+				sharp@*) virtualPackages="$virtualPackages pkgconf vips-dev"; \
 			esac; \
 			virtual=".build-deps-${package%%@*}"; \
 			apkDel="$apkDel $virtual"; \
@@ -127,10 +126,9 @@ RUN set -eux; \
 		apk del --no-network $apkDel; \
 	fi; \
 	\
-	gosu node yarn cache clean; \
 	gosu node npm cache clean --force; \
 	npm cache clean --force; \
-	rm -rv /tmp/yarn* /tmp/v8*
+	find /tmp -name 'npm*' -o -name 'v8*' | xargs rm -rf || true
 
 WORKDIR $GHOST_INSTALL
 VOLUME $GHOST_CONTENT
