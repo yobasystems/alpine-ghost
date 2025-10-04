@@ -5,14 +5,14 @@ ARG VCS_REF
 
 LABEL maintainer="Dominic Taylor <dominic@yoba.systems>" \
     architecture="arm64v8/aarch64" \
-    ghost-version="5.130.3" \
+    ghost-version="6.2.0" \
     alpine-version="3.22.1" \
-    build="03-Aug-2025" \
+    build="04-Oct-2025" \
     org.opencontainers.image.title="alpine-ghost" \
     org.opencontainers.image.description="Ghost container image running on Alpine Linux" \
     org.opencontainers.image.authors="Dominic Taylor <dominic@yoba.systems>" \
     org.opencontainers.image.vendor="Yoba Systems" \
-    org.opencontainers.image.version="5.130.3" \
+    org.opencontainers.image.version="6.2.0" \
     org.opencontainers.image.url="https://hub.docker.com/r/yobasystems/alpine-ghost/" \
     org.opencontainers.image.source="https://github.com/yobasystems/alpine-ghost" \
 	org.opencontainers.image.base.name="docker.io/yobasystems/alpine-nodejs:aarch64" \
@@ -53,7 +53,7 @@ RUN set -eux; \
 RUN set -eux; ln -svf gosu /usr/local/bin/su-exec; su-exec nobody true # backwards compatibility (TODO remove in Ghost 6+)
 
 ENV NODE_ENV=production \
-    GHOST_CLI_VERSION=1.28.2
+    GHOST_CLI_VERSION=1.28.3
 
 RUN set -eux; \
     npm install -g "ghost-cli@$GHOST_CLI_VERSION"; \
@@ -61,7 +61,7 @@ RUN set -eux; \
     
 ENV GHOST_INSTALL=/var/lib/ghost \
     GHOST_CONTENT=/var/lib/ghost/content \
-    GHOST_VERSION=5.130.3
+    GHOST_VERSION=6.2.0
 
 RUN set -eux; \
 	mkdir -p "$GHOST_INSTALL"; \
