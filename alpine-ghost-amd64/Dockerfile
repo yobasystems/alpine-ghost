@@ -5,14 +5,14 @@ ARG VCS_REF
 
 LABEL maintainer="Dominic Taylor <dominic@yoba.systems>" \
     architecture="amd64/x86_64" \
-    ghost-version="6.2.0" \
-    alpine-version="3.22.1" \
-    build="04-Oct-2025" \
+    ghost-version="6.9.3" \
+    alpine-version="3.22.2" \
+    build="30-Nov-2025" \
     org.opencontainers.image.title="alpine-ghost" \
     org.opencontainers.image.description="Ghost container image running on Alpine Linux" \
     org.opencontainers.image.authors="Dominic Taylor <dominic@yoba.systems>" \
     org.opencontainers.image.vendor="Yoba Systems" \
-    org.opencontainers.image.version="6.2.0" \
+    org.opencontainers.image.version="6.9.3" \
     org.opencontainers.image.url="https://hub.docker.com/r/yobasystems/alpine-ghost/" \
     org.opencontainers.image.source="https://github.com/yobasystems/alpine-ghost" \
 	org.opencontainers.image.base.name="docker.io/yobasystems/alpine-nodejs:amd64" \
@@ -23,7 +23,7 @@ RUN apk add --no-cache \
 # add "bash" for "[["
 		bash
 
-ENV GOSU_VERSION=1.17
+ENV GOSU_VERSION=1.19
 RUN set -eux; \
 	\
 	apk add --no-cache --virtual .gosu-deps \
@@ -61,7 +61,7 @@ RUN set -eux; \
     
 ENV GHOST_INSTALL=/var/lib/ghost \
     GHOST_CONTENT=/var/lib/ghost/content \
-    GHOST_VERSION=6.2.0
+    GHOST_VERSION=6.9.3
 
 RUN set -eux; \
 	mkdir -p "$GHOST_INSTALL"; \
